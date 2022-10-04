@@ -1,17 +1,23 @@
 'use strict';
 
-import bind from './helpers/bind.js';
+// import bind from './helpers/bind.js';
 
 // utils is a library of generic helper functions non-specific to axios
-
+(name=>console.log("hello"+name))("summer");
 const {toString} = Object.prototype;
 const {getPrototypeOf} = Object;
 
-const kindOf = (cache => thing => {
+const kindOf = (function fn1(cache) {
+  console.log("cache",cache);
+  return thing => {
+    console.log("thing",thing);
     const str = toString.call(thing);
     return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
+  }
 })(Object.create(null));
-
+console.log("kindof",kindOf);
+let type = kindOf([1, 2, 3])
+console.log("type",type);
 const kindOfTest = (type) => {
   type = type.toLowerCase();
   return (thing) => kindOf(thing) === type
@@ -314,7 +320,7 @@ function merge(/* obj1, obj2, obj3, ... */) {
 const extend = (a, b, thisArg, {allOwnKeys}= {}) => {
   forEach(b, (val, key) => {
     if (thisArg && isFunction(val)) {
-      a[key] = bind(val, thisArg);
+      // a[key] = bind(val, thisArg);
     } else {
       a[key] = val;
     }
@@ -567,47 +573,3 @@ const toFiniteNumber = (value, defaultValue) => {
   return Number.isFinite(value) ? value : defaultValue;
 }
 
-export default {
-  isArray,
-  isArrayBuffer,
-  isBuffer,
-  isFormData,
-  isArrayBufferView,
-  isString,
-  isNumber,
-  isBoolean,
-  isObject,
-  isPlainObject,
-  isUndefined,
-  isDate,
-  isFile,
-  isBlob,
-  isRegExp,
-  isFunction,
-  isStream,
-  isURLSearchParams,
-  isTypedArray,
-  isFileList,
-  forEach,
-  merge,
-  extend,
-  trim,
-  stripBOM,
-  inherits,
-  toFlatObject,
-  kindOf,
-  kindOfTest,
-  endsWith,
-  toArray,
-  forEachEntry,
-  matchAll,
-  isHTMLForm,
-  hasOwnProperty,
-  hasOwnProp: hasOwnProperty, // an alias to avoid ESLint no-prototype-builtins detection
-  reduceDescriptors,
-  freezeMethods,
-  toObjectSet,
-  toCamelCase,
-  noop,
-  toFiniteNumber
-};
