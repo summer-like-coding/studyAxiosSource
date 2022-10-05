@@ -1,6 +1,6 @@
 'use strict';
 
-// import bind from './helpers/bind.js';
+import bind from './bind';
 
 // utils is a library of generic helper functions non-specific to axios
 (name=>console.log("hello"+name))("summer");
@@ -317,7 +317,7 @@ function merge(/* obj1, obj2, obj3, ... */) {
       result[key] = val;
     }
   }
-
+  // 因为我不能确定有多少参数
   for (let i = 0, l = arguments.length; i < l; i++) {
     arguments[i] && forEach(arguments[i], assignValue);
   }
@@ -337,7 +337,7 @@ function merge(/* obj1, obj2, obj3, ... */) {
 const extend = (a, b, thisArg, {allOwnKeys}= {}) => {
   forEach(b, (val, key) => {
     if (thisArg && isFunction(val)) {
-      // a[key] = bind(val, thisArg);
+      a[key] = bind(val, thisArg);
     } else {
       a[key] = val;
     }
