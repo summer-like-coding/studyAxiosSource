@@ -264,7 +264,8 @@ function forEach(obj, fn, { allOwnKeys = false } = {}) {
     // Iterate over array values
     console.log("数组");
     for (i = 0, l = obj.length; i < l; i++) {
-      fn.call(null, obj[i], i, obj);
+      // fn.call(null, obj[i], i, obj);
+      fn(obj[i], i, obj)
     }
   } else {
     // Iterate over object keys
@@ -274,7 +275,8 @@ function forEach(obj, fn, { allOwnKeys = false } = {}) {
 
     for (i = 0; i < len; i++) {
       key = keys[i];
-      fn.call(null, obj[key], key, obj);
+      // fn.call(null, obj[key], key, obj);
+      fn(obj[key], key, obj)
     }
   }
 }
