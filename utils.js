@@ -244,7 +244,8 @@ const trim = (str) => str.trim ?
  * @param {Boolean} [allOwnKeys = false]
  * @returns {void}
  */
-function forEach(obj, fn, {allOwnKeys = false} = {}) {
+function forEach(obj, fn, { allOwnKeys = false } = {}) {
+  console.log("obj",obj);
   // Don't bother if no value provided
   if (obj === null || typeof obj === 'undefined') {
     return;
@@ -261,6 +262,7 @@ function forEach(obj, fn, {allOwnKeys = false} = {}) {
 
   if (isArray(obj)) {
     // Iterate over array values
+    console.log("数组");
     for (i = 0, l = obj.length; i < l; i++) {
       fn.call(null, obj[i], i, obj);
     }
@@ -277,6 +279,11 @@ function forEach(obj, fn, {allOwnKeys = false} = {}) {
   }
 }
 
+const fn1 = (elem, index, obj) => {
+  console.log(`obj:${obj}--index:${index}--elem:${elem}`);
+}
+forEach([1, 2, 3], fn1)
+forEach({name:'summer',age:12},fn1)
 /**
  * Accepts varargs expecting each argument to be an object, then
  * immutably merges the properties of each object and returns result.
