@@ -8,20 +8,24 @@ const {toString} = Object.prototype;
 const {getPrototypeOf} = Object;
 
 const kindOf = (function fn1(cache) {
-  console.log("cache",cache);
+  // console.log("cache",cache);
   return thing => {
-    console.log("thing",thing);
+    // console.log("thing",thing);
     const str = toString.call(thing);
     return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
   }
 })(Object.create(null));
-console.log("kindof",kindOf);
-let type = kindOf([1, 2, 3])
-console.log("type",type);
+// console.log("kindof",kindOf);
+// let type = kindOf([1, 2, 3])
+// console.log("type", type);
+
 const kindOfTest = (type) => {
   type = type.toLowerCase();
   return (thing) => kindOf(thing) === type
 }
+
+console.log("kindOfTest", kindOfTest("array")([1, 2, 3]));
+console.log("kindOfTest", kindOfTest("object")([1, 2, 3]));
 
 const typeOfTest = type => thing => typeof thing === type;
 
@@ -34,6 +38,7 @@ const typeOfTest = type => thing => typeof thing === type;
  */
 const {isArray} = Array;
 
+console.log(isArray([1,2,3]));
 /**
  * Determine if a value is undefined
  *
@@ -141,6 +146,7 @@ const isPlainObject = (val) => {
   return prototype === null || prototype === Object.prototype;
 }
 
+console.log("isPlainObject", isPlainObject([1,2,3]));
 /**
  * Determine if a value is a Date
  *
