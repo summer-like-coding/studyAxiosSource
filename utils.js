@@ -8,24 +8,23 @@ const {toString} = Object.prototype;
 const {getPrototypeOf} = Object;
 
 const kindOf = (function fn1(cache) {
-  // console.log("cache",cache);
+  console.log("cache",cache);
   return thing => {
-    // console.log("thing",thing);
+    console.log("thing",thing);
     const str = toString.call(thing);
     return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
   }
 })(Object.create(null));
-// console.log("kindof",kindOf);
-// let type = kindOf([1, 2, 3])
-// console.log("type", type);
+
 
 const kindOfTest = (type) => {
   type = type.toLowerCase();
+  console.log("type",type);
   return (thing) => kindOf(thing) === type
 }
 
-console.log("kindOfTest", kindOfTest("array")([1, 2, 3]));
-console.log("kindOfTest", kindOfTest("object")([1, 2, 3]));
+// console.log("kindOfTest", kindOfTest("array")([1, 2, 3]));
+// console.log("kindOfTest", kindOfTest("object")([1, 2, 3]));
 
 const typeOfTest = type => thing => typeof thing === type;
 
@@ -38,7 +37,7 @@ const typeOfTest = type => thing => typeof thing === type;
  */
 const {isArray} = Array;
 
-console.log(isArray([1,2,3]));
+// console.log(isArray([1,2,3]));
 /**
  * Determine if a value is undefined
  *
@@ -46,7 +45,7 @@ console.log(isArray([1,2,3]));
  *
  * @returns {boolean} True if the value is undefined, otherwise false
  */
-const isUndefined = typeOfTest('undefined');
+// const isUndefined = typeOfTest('undefined');
 
 /**
  * Determine if a value is a Buffer
@@ -67,7 +66,7 @@ function isBuffer(val) {
  *
  * @returns {boolean} True if value is an ArrayBuffer, otherwise false
  */
-const isArrayBuffer = kindOfTest('ArrayBuffer');
+// const isArrayBuffer = kindOfTest('ArrayBuffer');
 
 
 /**
@@ -94,7 +93,7 @@ function isArrayBufferView(val) {
  *
  * @returns {boolean} True if value is a String, otherwise false
  */
-const isString = typeOfTest('string');
+// const isString = typeOfTest('string');
 
 /**
  * Determine if a value is a Function
@@ -102,7 +101,7 @@ const isString = typeOfTest('string');
  * @param {*} val The value to test
  * @returns {boolean} True if value is a Function, otherwise false
  */
-const isFunction = typeOfTest('function');
+// const isFunction = typeOfTest('function');
 
 /**
  * Determine if a value is a Number
@@ -111,7 +110,7 @@ const isFunction = typeOfTest('function');
  *
  * @returns {boolean} True if value is a Number, otherwise false
  */
-const isNumber = typeOfTest('number');
+// const isNumber = typeOfTest('number');
 
 /**
  * Determine if a value is an Object
@@ -146,7 +145,7 @@ const isPlainObject = (val) => {
   return prototype === null || prototype === Object.prototype;
 }
 
-console.log("isPlainObject", isPlainObject([1,2,3]));
+// console.log("isPlainObject", isPlainObject([1,2,3]));
 /**
  * Determine if a value is a Date
  *
@@ -154,7 +153,7 @@ console.log("isPlainObject", isPlainObject([1,2,3]));
  *
  * @returns {boolean} True if value is a Date, otherwise false
  */
-const isDate = kindOfTest('Date');
+// const isDate = kindOfTest('Date');
 
 /**
  * Determine if a value is a File
@@ -163,7 +162,7 @@ const isDate = kindOfTest('Date');
  *
  * @returns {boolean} True if value is a File, otherwise false
  */
-const isFile = kindOfTest('File');
+// const isFile = kindOfTest('File');
 
 /**
  * Determine if a value is a Blob
@@ -172,7 +171,7 @@ const isFile = kindOfTest('File');
  *
  * @returns {boolean} True if value is a Blob, otherwise false
  */
-const isBlob = kindOfTest('Blob');
+// const isBlob = kindOfTest('Blob');
 
 /**
  * Determine if a value is a FileList
@@ -181,7 +180,7 @@ const isBlob = kindOfTest('Blob');
  *
  * @returns {boolean} True if value is a File, otherwise false
  */
-const isFileList = kindOfTest('FileList');
+// const isFileList = kindOfTest('FileList');
 
 /**
  * Determine if a value is a Stream
@@ -208,6 +207,7 @@ const isFormData = (thing) => {
   );
 }
 
+// console.log("isFormData",isFormData([1,2,3]));
 /**
  * Determine if a value is a URLSearchParams object
  *
@@ -216,7 +216,9 @@ const isFormData = (thing) => {
  * @returns {boolean} True if value is a URLSearchParams object, otherwise false
  */
 const isURLSearchParams = kindOfTest('URLSearchParams');
-
+const paramsString = "q=URLUtils.searchParams&topic=api"
+const searchParams = new URLSearchParams(paramsString);
+console.log("isURLSerachParams",isURLSearchParams(searchParams));
 /**
  * Trim excess whitespace off the beginning and end of a string
  *
